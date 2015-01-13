@@ -9,8 +9,8 @@
   "shared_folders" :
   [
     {
-      "secret" : "BGDUABD2AAF4H2A324AG4DIACY7CPYAK7",
-      "dir" : "/data/Radio-T",
+      "secret" : "KEY",
+      "dir" : "/data/FOLDER",
       "use_relay_server" : true,
       "use_tracker" : true,
       "use_sync_trash" : true,
