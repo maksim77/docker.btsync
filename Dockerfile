@@ -8,6 +8,6 @@ RUN cd /opt/btsync/ && tar xzvf stable && \
 	touch /FIRSTRUN
 
 EXPOSE 55555
-VOLUME /data
+VOLUME ["/data"]
 
 ENTRYPOINT ["/opt/btsync/btsync","--config","/opt/btsync/btsync.conifg","--nodaemon"]
