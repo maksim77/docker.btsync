@@ -1,7 +1,6 @@
 #!/usr/local/bin/python3
 import os
 import json
-import sys
 import argparse
 
 def createParser ():
