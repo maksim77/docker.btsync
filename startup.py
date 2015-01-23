@@ -7,7 +7,7 @@ import argparse
 def createParser ():
     parser = argparse.ArgumentParser()
     parser.add_argument('name', nargs='?')
-    
+
     return parser
 
 parser = createParser()
@@ -38,9 +38,9 @@ if os.path.exists('FLAG'):
         shared_folders=[FOLDERS]
 
         CONFIG ["shared_folders"] = shared_folders
-        
+
         res_str = (json.dumps(CONFIG,indent=5))
-        
+
         fopen = open('btsync.config','w')
         for index in res_str:
             fopen.write(index)
@@ -48,4 +48,3 @@ if os.path.exists('FLAG'):
         print (json.dumps(CONFIG,indent=5))
     else:
         print("KEY not found")
-print ("Bye!")
