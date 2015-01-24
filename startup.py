@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 import os
+import sys
 import json
 from argparse import RawTextHelpFormatter, ArgumentParser
 
@@ -53,11 +54,13 @@ def FirstRun():
     print(json.dumps(CONFIG, indent=5))
 
 
-parser = CreateParser()
-args = parser.parse_args()
-
 if os.path.exists('FLAG'):
     if os.environ.get('KEY'):
         FirstRun()
+        os.remove('FLAG')
     else:
         print("KEY not found")
+        sys.exit(1)
+
+parser = CreateParser()
+args = parser.parse_args()
