@@ -10,8 +10,7 @@ from argparse import RawTextHelpFormatter, ArgumentParser
 def folders(key, folder):
     FOLDERS = {}
     FOLDERS['secret'] = key
-    FOLDERS['dir'] = folder
-    FOLDERS['dir'] = '/data/bt_folder/'
+    FOLDERS['dir'] = "/data/"+folder
     FOLDERS['use_relay_server'] = 'true'
     FOLDERS['use_tracker'] = 'true'
     FOLDERS['use_sync_trash'] = 'true'
@@ -44,6 +43,9 @@ def FirstRun():
         fopen.write(index)
     fopen.close()
     print(json.dumps(CONFIG, indent=5))
+    os.remove('FLAG')
+    print("Running daemon")
+    sys.exit(0)
 
 
 def CreateParser():
@@ -63,7 +65,6 @@ def CreateParser():
 if os.path.exists('FLAG'):
     if os.environ.get('KEY'):
         FirstRun()
-        os.remove('FLAG')
     else:
         print("KEY not found")
         sys.exit(1)
@@ -72,10 +73,17 @@ parser = CreateParser()
 args = parser.parse_args()
 
 if args.cmd == "add":
+    print(args.cmd)
+elif args.cmd == "delete":
     if args.key:
         key = args.key
     else:
         key = input("Введите ключ:")
-    print(key)
-elif args.cmd == "delete":
-    print(args.cmd)
+
+    fopen = open('btsync.config', 'r')
+    conf_dict = json.load(fopen)
+    for k in conf_dict["shared_folders"]:
+        if k["secret"] == key:
+            conf_dict["shared_folders"].remove(k)
+            break
+    print(json.dumps(conf_dict, indent=4))
